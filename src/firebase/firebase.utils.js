@@ -9,45 +9,45 @@ const config = {
     storageBucket: "crwn-db-b07b9.appspot.com",
     messagingSenderId: "661294505162",
     appId: "1:661294505162:web:4476fc69b3d532c3cfe833"
-  }
+}
 
-  export const createUserProfileDocument = async (userAuth, additionalData) => {
-    if(!userAuth) return
+firebase.initializeApp(config)
 
-    const userRef = firestore.doc(`users/${userAuth.uid}`)
+export const auth = firebase.auth()
+export const firestore = firebase.firestore()
 
-    const snapShot = await userRef.get()
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if(!userAuth) return
 
-    // console.log(snapShot)
+  const userRef = firestore.doc(`users/${userAuth.uid}`)
 
-    if(!snapShot.exists) {
-      const {displayName, email} = userAuth
-      const createdAt = new Date()
+  const snapShot = await userRef.get()
 
-      try {
-        await userRef.set({
-          displayName,
-          email,
-          createdAt,
-          ...additionalData
-        })
-      } catch(error) {
-        console.log('Error Creating User', error.message)
-      }
+  // console.log(snapShot)
 
+  if(!snapShot.exists) {
+    const {displayName, email} = userAuth
+    const createdAt = new Date()
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      })
+    } catch(error) {
+      console.log('Error Creating User', error.message)
     }
 
-    return userRef
-
   }
 
-  firebase.initializeApp(config)
+  return userRef
 
-  export const auth = firebase.auth()
-  export const firestore = firebase.firestore()
+}
 
-  const provider = new firebase.auth.GoogleAuthProvider()
-  provider.setCustomParameters({prompt: 'select_account' })
-  export const signInWithGoogle = () => auth.signInWithPopup(provider)
+const provider = new firebase.auth.GoogleAuthProvider()
+provider.setCustomParameters({prompt: 'select_account' })
+export const signInWithGoogle = () => auth.signInWithPopup(provider)
 
-  export default firebase
+export default firebase
