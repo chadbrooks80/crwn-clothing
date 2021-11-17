@@ -2,12 +2,14 @@ import React from "react";
 import {auth} from '../../firebase/firebase.utils'
 import {Link} from "react-router-dom"
 import { connect } from "react-redux";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import CartIcon from "../cart-icon/cart-icon.component";
 
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import './header.styles.scss'
 
-const Header = ({currentUser}) => {
+const Header = ({currentUser, cartHidden}) => {
     return (
         <div className="header">
             <Link to="/"  className="logo-container">
@@ -22,15 +24,19 @@ const Header = ({currentUser}) => {
                     :
                     <Link className="option" to='/signin'>SIGN IN</Link>
                 }
+                <CartIcon />
             </div>
+            {cartHidden ? null : (<CartDropdown />)}
         </div>
     )
 }
 
 // this State is the root reducer, or top reducer
-const mapStateToProps = state => {
+// nested destructuring access the state.user.currentUser
+const mapStateToProps = ({user: {currentUser}, cart: {hidden} }) => {
     return ({
-    currentUser: state.user.currentUser
+        currentUser,  // destructor above accesses the: state.user.currentUser
+        cartHidden: hidden
     })
 }
 
