@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import CartIcon from "../cart-icon/cart-icon.component";
 
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import './header.styles.scss'
@@ -31,13 +35,10 @@ const Header = ({currentUser, cartHidden}) => {
     )
 }
 
-// this State is the root reducer, or top reducer
-// nested destructuring access the state.user.currentUser
-const mapStateToProps = ({user: {currentUser}, cart: {hidden} }) => {
-    return ({
-        currentUser,  // destructor above accesses the: state.user.currentUser
-        cartHidden: hidden
+// this createStructuredSelector allows us to not have to pass in state into selectcurrentUser and other function
+const mapStateToProps = createStructuredSelector({
+        currentUser: selectCurrentUser,
+        cartHidden: selectCartHidden
     })
-}
 
 export default connect(mapStateToProps)(Header)

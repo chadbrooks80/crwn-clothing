@@ -5,6 +5,9 @@ import Header from './components/header/header.component'
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
 import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 
+import { selectCurrentUser } from './redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
+
 import { connect } from 'react-redux';
 import {setCurrentUser} from './redux/user/user.actions'
 
@@ -48,7 +51,6 @@ class App extends React.Component {
     console.log("current user props", this.props.currentUser)
     return (
       <div>
-        {/* <Header currentUser={this.state.currentUser} /> */}
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />      
@@ -65,11 +67,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return ({
-    currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
   })
-};
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
