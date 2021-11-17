@@ -4,7 +4,7 @@ const INITIAL_STATE = {
 
 // The state = INITIAL_STATE is the default value if none is given. 
 const userReducer = (state = INITIAL_STATE, action) => {
-    switch (action.tyle) {
+    switch (action.type) {
         case 'SET_CURRENT_USER':
             return {
                 ...state,

@@ -27,8 +27,11 @@ const Header = ({currentUser}) => {
     )
 }
 
+// this State is the root reducer, or top reducer
 const mapStateToProps = state => {
+    return ({
     currentUser: state.user.currentUser
+    })
 }
 
 export default connect(mapStateToProps)(Header)

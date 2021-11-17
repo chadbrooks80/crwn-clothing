@@ -33,11 +33,13 @@ class App extends React.Component {
         })
 
       } else {
+        // this would return Null
         setCurrentUser(userAuth)
       }
     })
   }
 
+  // leaern and write here what this lifecycle does
   componentWillUnmount() {
     this.unsubscribeFromAuth()
   }
