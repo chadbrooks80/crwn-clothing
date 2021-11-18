@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 const cartReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case CartActionTypes.TOOGLE_CART_HIDDEN:
+            console.log("cart hidden button")
             return {
                 ...state,
                 hidden: !state.hidden
