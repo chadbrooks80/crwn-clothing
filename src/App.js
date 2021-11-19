@@ -49,13 +49,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("current user props", this.props.currentUser)
     return (
       <div>
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />      
-          <Route exact path='/shop' component={ShopPage} />
+          <Route path='/shop' component={ShopPage} />
           <Route exact 
             path='/signin' 
             render={ () => this.props.currentUser ? 
