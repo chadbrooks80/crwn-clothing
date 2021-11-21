@@ -16,6 +16,7 @@ firebase.initializeApp(config)
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
 
+// this function receives the collections snapshop gets the data from doc.data() and then codes into the correct format to place into redux store. 
 export const convertCollectionSnapshopToMap = collections => {
   const transformedCollection = collections.docs.map(doc => {
     const {title, items} = doc.data()
@@ -27,12 +28,12 @@ export const convertCollectionSnapshopToMap = collections => {
     }
   })
   
-  const objectToReturn = {}
+  const finalCollectionToReturn = {}
   transformedCollection.forEach(collection => {
-    objectToReturn[collection.title.toLowerCase()] = collection
+    finalCollectionToReturn[collection.title.toLowerCase()] = collection
   })
 
-  return objectToReturn;
+  return finalCollectionToReturn;
 
   
   // return transformedCollection.reduce((accumulator, collection) => {
