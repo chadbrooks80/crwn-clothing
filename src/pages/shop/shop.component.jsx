@@ -29,14 +29,21 @@ class ShopPage extends React.Component {
         // creates Firebase reference for the collection called collections (these are items can shop for)
         const collectionRef = firestore.collection('collections')
 
+        // fetch example but not using but another way to get snapshop
+        /* 
+        fetch('https://firestore.googleapis.com/v1/projects/crwn-db-b07b9/databases/(default)/documents/collections')
+        .then(response => response.json())
+        .then(collections => console.log("thecollections", collections))
+        */
+
         // takes referene and gets snapshot
-        this.unsubscribeFromSnapshop = collectionRef.onSnapshot(async snapshot => {
-            
+        collectionRef.get().then(snapshot => {
             // this app converts the snapshot data into the proper object to place into starte
             const collectionsMap = convertCollectionSnapshopToMap(snapshot)
             this.props.updateCollections(collectionsMap) //dispatch into redux store
             this.setState({loading: false}) //changes loading to false because the redux store has been updated (see the routes below, which reference this state.) 
-        })
+        })        
+        
     }
     
     render() {
