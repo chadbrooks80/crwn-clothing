@@ -2,12 +2,14 @@ import ShopActionTypes from "./shop.types";
 
 import { firestore, convertCollectionSnapshopToMap } from "../../firebase/firebase.utils";
 
+// fetch collections start just changes the isFetching to True so it knows to put on the spinner
 export const fetchCollectionsStart = () => {
     return {
         type: ShopActionTypes.FETCH_COLLECTIONS_START
     }
 }
 
+// adds the collectionsMap payload and then changes isFetching to false in the reducer
 export const fetchCollectionsSuccess = collectionsMap => ({
     type: ShopActionTypes.FETCH_COLLECTIONS_SUCCESS,
     payload: collectionsMap

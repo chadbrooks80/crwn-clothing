@@ -6,12 +6,21 @@ const selectShop = state => {
 
 export const selectCollections = createSelector(
     [selectShop],
-    shop => shop.collections
+    shop => {
+        console.log("selectCollections", shop.collections)
+        return shop.collections
+    }
 )
 
+// this takes the selectCollections and changes it from an object to an array.
 export const selectCollectionsForPreview = createSelector(
     [selectCollections],
-    collections => collections ? Object.keys(collections).map(key => collections[key]) : []
+    collections => {
+        console.log("selectCollectionsForPreview", collections ? Object.keys(collections).map(key => collections[key]) : [])
+        console.log("keys", collections ? Object.keys(collections) : [])
+        return collections ? Object.keys(collections).map(key => collections[key]) : []
+    } 
+        
 )
 
 export const selectCollection = collectionUrlParam => 
@@ -20,8 +29,15 @@ export const selectCollection = collectionUrlParam =>
         collections => collections ? collections[collectionUrlParam] : null
 )
 
+// checks if isFetching has changed from false to true so it knows when to stop showing the spinner on 
+// the /shop page
 export const selectIsCollectionFetching = createSelector(
     [selectShop],
     shop => shop.isFetching
 )
 
+// this returns true if the shop.collections is not default of Null
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections 
+)
