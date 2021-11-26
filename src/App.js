@@ -29,26 +29,27 @@ class App extends React.Component {
   componentDidMount() {
 
     const {setCurrentUser} = this.props
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth) {
-        createUserProfileDocument(userAuth).then(userRef => {
+    
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if(userAuth) {
+    //     createUserProfileDocument(userAuth).then(userRef => {
           
-          userRef.onSnapshot(snapShot => {
-            setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
-            })
-          })
+    //       userRef.onSnapshot(snapShot => {
+    //         setCurrentUser({
+    //           id: snapShot.id,
+    //           ...snapShot.data()
+    //         })
+    //       })
           
-        })
+    //     })
 
-      } else {
-        // this would return Null
-        setCurrentUser(userAuth)       
-      }
-      // addCollectionAndDocuments('collections', 
-      //   collectionsArray.map( ({title, items}) => ({title, items}) ))
-    })
+    //   } else {
+    //     // this would return Null
+    //     setCurrentUser(userAuth)       
+    //   }
+    //   // addCollectionAndDocuments('collections', 
+    //   //   collectionsArray.map( ({title, items}) => ({title, items}) ))
+    // })
   }
 
   // leaern and write here what this lifecycle does

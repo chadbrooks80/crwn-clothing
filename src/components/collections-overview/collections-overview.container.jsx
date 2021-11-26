@@ -10,7 +10,6 @@ const mapStateToProps = createStructuredSelector({
     isLoading: selectIsCollectionFetching
 })
 
-
 // compose will do the same as the following: 
 // connect(mapStateToProps)(WithSpinner(collectionsOverview))
 // starts with wrapping collectionsOver into With Spinner, which wraps into Connect.
