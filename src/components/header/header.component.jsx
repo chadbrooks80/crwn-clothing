@@ -12,7 +12,9 @@ import { ReactComponent as Logo } from '../../assets/crown.svg'
 
 import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.styles'
 
-const Header = ({currentUser, cartHidden}) => {
+import {signOutStart} from '../../redux/user/user.actions'
+
+const Header = ({currentUser, cartHidden, signOutStart}) => {
     return (
         <HeaderContainer>
             <LogoContainer to="/">
@@ -23,7 +25,7 @@ const Header = ({currentUser, cartHidden}) => {
                 <OptionLink to="/contact">CONTACT</OptionLink>
                 {
                     currentUser ?
-                    <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
+                    <OptionLink as='div' onClick={signOutStart}>SIGN OUT</OptionLink>
                     :
                     <OptionLink to='/signin'>SIGN IN</OptionLink>
                 }
@@ -34,10 +36,14 @@ const Header = ({currentUser, cartHidden}) => {
     )
 }
 
+const mapDispatchToProps = dispatch => ({
+    signOutStart: () => dispatch(signOutStart())
+})
+
 // this createStructuredSelector allows us to not have to pass in state into selectcurrentUser and other function
 const mapStateToProps = createStructuredSelector({
         currentUser: selectCurrentUser,
         cartHidden: selectCartHidden
     })
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

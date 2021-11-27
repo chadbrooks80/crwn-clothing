@@ -9,7 +9,7 @@ import {
 
 import userActionTypes from "./user.types";
 
-import { signInSuccess, signInFailure } from "./user.actions";
+import { signInSuccess, signInFailure, signOutSuccess, signOutFailure } from "./user.actions";
 
 export function* getSnapshopFromUserAuth(userAuth) {
     try {
@@ -50,6 +50,15 @@ export function* isUserAuthenticated() {
     }
 }
 
+export function* signOut() {
+    try {
+        yield auth.signOut()
+        yield put(signOutSuccess())
+    } catch(error) {
+        yield put(signOutFailure(error))
+    }
+}
+
 export function* onGoogleSignInStart() {
     yield takeLatest(userActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle)
 }
@@ -67,7 +76,12 @@ export function* userSagas() {
         [
             call(onGoogleSignInStart), 
             call(onEmailSignInStart),
-            call(onCheckUserSession) 
+            call(onCheckUserSession),
+            call(onSignOutStart) 
         ] 
     )
+}
+
+export function* onSignOutStart() {
+    yield takeLatest(userActionTypes.SIGN_OUT_START, signOut)
 }
