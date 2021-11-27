@@ -22,7 +22,7 @@ const Header = ({currentUser, cartHidden}) => {
                 <OptionLink to="/shop">SHOP</OptionLink>
                 <OptionLink to="/contact">CONTACT</OptionLink>
                 {
-                    currentUser ? 
+                    currentUser ?
                     <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
                     :
                     <OptionLink to='/signin'>SIGN IN</OptionLink>

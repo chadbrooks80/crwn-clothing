@@ -7,7 +7,6 @@ const selectShop = state => {
 export const selectCollections = createSelector(
     [selectShop],
     shop => {
-        console.log("selectCollections", shop.collections)
         return shop.collections
     }
 )
@@ -16,8 +15,6 @@ export const selectCollections = createSelector(
 export const selectCollectionsForPreview = createSelector(
     [selectCollections],
     collections => {
-        console.log("selectCollectionsForPreview", collections ? Object.keys(collections).map(key => collections[key]) : [])
-        console.log("keys", collections ? Object.keys(collections) : [])
         return collections ? Object.keys(collections).map(key => collections[key]) : []
     } 
         

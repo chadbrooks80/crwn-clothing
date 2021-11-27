@@ -7,8 +7,6 @@ import {
 } from './shops.actions'
 
 export function* fetchCollectionsAsync() {
-    yield console.log("I am fired")
-
     try {
         // creates Firebase reference for the collection called collections (these are items can shop for)
         const collectionRef = firestore.collection('collections')
