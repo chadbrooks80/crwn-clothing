@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {Route} from 'react-router-dom'
 
@@ -8,17 +8,13 @@ import { fetchCollectionsStart } from "../../redux/shop/shops.actions";
 import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 import CollectionPageContainer from "../collection/collection.container";
 
-
-class ShopPage extends React.Component {
+const ShopPage = ({match, fetchCollectionsStart}) => {
     
-    componentDidMount() {
-        const {fetchCollectionsStart} = this.props
+    useEffect(() => {
         fetchCollectionsStart()
-    }
+    }, [fetchCollectionsStart])
     
-    render() {
-            const {match} = this.props
-            return(
+        return(
             <div className="shop-page">
                 {/* collections overview and colltion page both functions that return the spinner until loading is false. */}
                 < Route exact 
@@ -32,7 +28,7 @@ class ShopPage extends React.Component {
                 />
             </div>
         )
-    }
+    
 } 
 
 const mapDispatchToProps = dispatch => ({

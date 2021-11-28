@@ -1,5 +1,4 @@
 import React from "react";
-import {auth} from '../../firebase/firebase.utils'
 import { connect } from "react-redux";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import CartIcon from "../cart-icon/cart-icon.component";

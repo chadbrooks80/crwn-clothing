@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -16,38 +16,37 @@ import './App.css';
 
 
 
-class App extends React.Component {
+const App = ({ checkUserSession, currentUser }) => {
 
-  unsubscribeFromAuth = null;
+  // const unsubscribeFromAuth = null;
 
-  componentDidMount() {
-    const {checkUserSession} = this.props
+  useEffect(() => {
     checkUserSession()
-  }
+  },[checkUserSession])
+  
 
   // leaern and write here what this lifecycle does
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />      
-          <Route path='/shop' component={ShopPage} />
-          <Route exact 
-            path='/signin' 
-            render={ () => this.props.currentUser ? 
-              (<Redirect to='/' />) :
-              (<SignInAndSignUp />) } 
-            />
-          <Route exact path='/checkout' component={CheckoutPage} />
-        </Switch>
-      </div>
-    )
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth()
+  // }
+  
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={HomePage} />      
+        <Route path='/shop' component={ShopPage} />
+        <Route exact 
+          path='/signin' 
+          render={ () => currentUser ? 
+            (<Redirect to='/' />) :
+            (<SignInAndSignUp />) } 
+          />
+        <Route exact path='/checkout' component={CheckoutPage} />
+      </Switch>
+    </div>
+  )
+  
 }
 
 const mapDispatchToProps = dispatch => ({
